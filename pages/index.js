@@ -39,9 +39,9 @@ export default function Home({ data }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(`http://localhost:3000/api/course`);
   const data = await res.json();
 
-  return { props: { data }, revalidate: 10 };
+  return { props: { data }, revalidate: 10, fallback: false };
 }
