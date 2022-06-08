@@ -40,9 +40,9 @@ export default function Home({ data }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch(`http://localhost:3000/api/course`);
   const data = await res.json();
 
-  return { props: { data } };
+  return { props: { data }, revalidate: 10 };
 }
