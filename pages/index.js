@@ -4,7 +4,6 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 // components
 import Container from '../components/Container';
-import Logo from '../components/Logo';
 import Heading from '../components/Heading';
 import CourseOverview from '../components/CourseOverview';
 import GridWrapper from '../components/GridWrapper';
