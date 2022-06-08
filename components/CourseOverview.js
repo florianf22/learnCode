@@ -6,9 +6,14 @@ const CourseOverview = ({ course }) => {
     image_480x270,
     title,
     headline,
-    visible_instructors: { name: author, image_50x50: avatarUrl },
-    predictive_score: date,
+    visible_instructors: {
+      name: author,
+      image_50x50: avatarUrl,
+      job_title: authorJobTitle,
+    },
   } = course;
+
+  console.log(course);
 
   return (
     <article className="mt-20 p-4 w-min">
@@ -34,7 +39,7 @@ const CourseOverview = ({ course }) => {
 
         <div>
           <p className="font-semibold text-sm">{author}</p>
-          <p className="text-xs">{date}</p>
+          <p className="text-xs">{authorJobTitle}</p>
         </div>
       </div>
     </article>

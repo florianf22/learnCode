@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 // components
 import Container from '../components/Container';
 import Logo from '../components/Logo';
+import SearchBar from '../components/SearchBar';
+import TagsList from '../components/TagList';
 
 export default function Home({ data }) {
   const { data: session, status } = useSession();
@@ -19,7 +21,11 @@ export default function Home({ data }) {
       </Head>
 
       <Container>
-        <Logo />
+        <div className="flex justify-center mt-12">
+          <SearchBar icon="search" />
+        </div>
+
+        <TagsList />
       </Container>
     </div>
   );

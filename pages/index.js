@@ -7,12 +7,11 @@ import Container from '../components/Container';
 import Logo from '../components/Logo';
 import Heading from '../components/Heading';
 import CourseOverview from '../components/CourseOverview';
+import GridWrapper from '../components/GridWrapper';
 
 export default function Home({ data }) {
   const { data: session, status } = useSession();
   const router = useRouter();
-
-  console.log(status);
 
   React.useEffect(() => {
     if (status === 'unauthenticated') {
@@ -29,12 +28,13 @@ export default function Home({ data }) {
       </Head>
 
       <Container>
-        <Logo />
         <Heading>Latest Updates</Heading>
 
-        <CourseOverview course={data[8]} />
-
-        <button onClick={signOut}>log out man</button>
+        <GridWrapper>
+          {data.map(course => (
+            <CourseOverview key={course.id} course={course} />
+          ))}
+        </GridWrapper>
       </Container>
     </div>
   );
