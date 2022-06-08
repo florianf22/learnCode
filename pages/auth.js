@@ -1,24 +1,31 @@
 import * as React from 'react';
 import Head from 'next/head';
-import { useSession, signOut } from 'next-auth/react';
+import GoogleButton from 'react-google-button';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+
 // components
 import Container from '../components/Container';
 import Logo from '../components/Logo';
-import Heading from '../components/Heading';
-import CourseOverview from '../components/CourseOverview';
 
-export default function Home({ data }) {
+export default function Auth() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  console.log(status);
-
   React.useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/auth');
+    if (status === 'authenticated') {
+      router.push('/');
     }
   }, [router, status]);
+
+  const onSignIn = async e => {
+    try {
+      await signIn('google');
+      router.push('/');
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div>
@@ -30,19 +37,14 @@ export default function Home({ data }) {
 
       <Container>
         <Logo />
-        <Heading>Latest Updates</Heading>
 
-        <CourseOverview course={data[8]} />
+        <GoogleButton
+          onClick={onSignIn}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        />
 
         <button onClick={signOut}>log out man</button>
       </Container>
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/api/course`);
-  const data = await res.json();
-
-  return { props: { data } };
 }
