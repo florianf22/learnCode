@@ -1,7 +1,14 @@
 import * as React from 'react';
 import Image from 'next/image';
+import AuthorInfo from './AuthorInfo';
 
-const CourseOverview = ({ course }) => {
+const CourseOverview = ({
+  course,
+  showCourseCover = false,
+  showDescription = true,
+  showAuthor = 'picture',
+  span = false,
+}) => {
   const {
     image_480x270,
     title,
@@ -13,17 +20,35 @@ const CourseOverview = ({ course }) => {
     },
   } = course;
 
-  console.log(course);
-
   return (
-    <article className="mt-20 p-4 w-min">
-      <div className={`relative h-[150px] w-[300px]`}>
-        <Image src={image_480x270} alt="aaa" layout="fill" objectFit="cover" />
-      </div>
+    <article
+      className="p-4 w-[300px] m-1 border-[1px] border-gray-300"
+      style={{
+        gridRowEnd: span ? 'span 2' : 'span 1',
+      }}
+    >
+      {showCourseCover && (
+        <div className={`relative h-[150px] w-[250px]`}>
+          <Image
+            src={image_480x270}
+            alt="Course photo"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+      )}
 
-      <h2 className="font-bold text-3xl mt-3 font-tinos">{title}</h2>
+      <h2 className="font-bold text-3xl mt-3 font-tinos">
+        {title.length > 23 ? title.substring(0, 23) + '...' : title}
+      </h2>
 
-      <p className="mt-6 font-poppins text-sm">{headline}</p>
+      {showDescription && (
+        <p className="mt-6 font-poppins text-sm">
+          {headline.length > 100
+            ? headline.substring(0, 100) + '...'
+            : headline}
+        </p>
+      )}
 
       <div className="mt-8 flex gap-4 items-center">
         <div
@@ -31,16 +56,17 @@ const CourseOverview = ({ course }) => {
         >
           <Image
             src={avatarUrl}
-            alt="aaa"
+            alt="Author photo"
             layout="fill"
             className="object-fill"
           />
         </div>
 
-        <div>
-          <p className="font-semibold text-sm">{author}</p>
-          <p className="text-xs">{authorJobTitle}</p>
-        </div>
+        <AuthorInfo
+          showAuthor={showAuthor}
+          author={author}
+          authorJobTitle={authorJobTitle}
+        />
       </div>
     </article>
   );

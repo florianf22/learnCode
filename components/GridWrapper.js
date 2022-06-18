@@ -4,7 +4,8 @@ const GridWrapper = ({ children, className, ...props }) => {
   return (
     <div
       {...props}
-      className={`grid grid-cols-5 gap-10 bg-red-500 overflow-scroll ${className}`}
+      className={`grid w-[calc(100vw - 10rem)] gap-x-5 gap-y-[0px] overflow-scroll
+       grid-cols-5 ${className}`}
     >
       {children}
     </div>

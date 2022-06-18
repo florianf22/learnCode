@@ -2,7 +2,7 @@ import * as React from 'react';
 import Logo from './Logo';
 
 const Container = ({ children, main, className, ...props }) => {
-  const cls = 'pt-8 px-20 h-[100vh] w-[100vw] bg-bg text-text font-poppins';
+  const cls = 'pt-8 px-20 w-[100vw] bg-bg text-text font-poppins';
 
   if (main) {
     return (
@@ -16,7 +16,7 @@ const Container = ({ children, main, className, ...props }) => {
     <div
       {...props}
       // className={`${cls} ${className}`}
-      className="pt-8 px-20 h-[100vh] w-[100vw] bg-bg text-text font-poppins"
+      className="pt-8 px-20 w-[100vw] bg-bg text-text font-poppins"
     >
       <Logo />
       {children}

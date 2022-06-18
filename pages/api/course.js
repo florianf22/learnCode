@@ -5,11 +5,13 @@ import Course from '../../models/Course';
 const handler = async (req, res) => {
   const courses = await Course.find({
     headline: {
-      $regex: /css/i,
+      $regex: /js/i,
     },
-  }).limit(10);
+  }).limit(20);
 
   const formattedCourses = formatVisibleInstructors(courses);
+
+  console.log(formattedCourses.length);
 
   return res.status(200).send(formattedCourses);
 };
