@@ -11,6 +11,7 @@ import CourseOverview from '../components/CourseOverview';
 
 import { GRID_OPTIONS } from '../constants';
 import Loader from '../components/Loader';
+import { getBaseUrl } from '../lib/getBaseUrl';
 
 export default function Home({ data }) {
   const { data: session, status } = useSession();
@@ -70,7 +71,7 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/api/course`);
+  const res = await fetch(`${getBaseUrl()}/api/course`);
   const data = await res.json();
 
   return { props: { data, revalidate: 10, fallback: false } };
