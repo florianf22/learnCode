@@ -1,29 +1,12 @@
 import Tag from './Tag';
+import { TAGS } from '../constants';
 
-const tags = [
-  'Technology',
-  'Open Source',
-  'JavaScript',
-  'Minimalism',
-  'Self-help',
-  'Animals',
-  'Herbivores',
-  'HTML',
-  'CSS',
-  'PHP',
-  'Web Technologies',
-  'Career',
-  'Life',
-  'Spirituality',
-  'Food',
-  'Cooking',
-  'Sports',
-  'Racing',
-  'Mountain Hiking',
-  'Cruising',
-];
-
-const TagsList = ({ className, ...props }) => {
+const TagsList = ({
+  className,
+  toggleSelectedTags,
+  checkIfTagIsSelected,
+  ...props
+}) => {
   return (
     <div
       className="mt-20 w-full grid gap-y-6 gap-x-2 px-6"
@@ -31,8 +14,13 @@ const TagsList = ({ className, ...props }) => {
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
       }}
     >
-      {tags.map(tag => (
-        <Tag key={tag} tagName={tag} />
+      {TAGS.map(tag => (
+        <Tag
+          key={tag}
+          tagName={tag}
+          toggleSelectedTags={toggleSelectedTags}
+          checkIfTagIsSelected={checkIfTagIsSelected}
+        />
       ))}
     </div>
   );

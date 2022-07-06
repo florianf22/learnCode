@@ -12,14 +12,13 @@ export default function Auth() {
 
   React.useEffect(() => {
     if (status === 'authenticated') {
-      router.push('/');
+      router.push('/interests');
     }
   }, [router, status]);
 
-  const onSignIn = async e => {
+  const onSignIn = async () => {
     try {
       await signIn('google');
-      router.push('/');
     } catch (err) {
       console.error(err);
     }

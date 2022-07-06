@@ -3,40 +3,23 @@ import Head from 'next/head';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Masonry from 'react-masonry-component';
-// components
+import { BarWave } from 'react-cssfx-loading';
+
 import Container from '../components/Container';
 import Heading from '../components/Heading';
 import CourseOverview from '../components/CourseOverview';
-import GridWrapper from '../components/GridWrapper';
 
-const GRID_OPTIONS = [
-  {},
-  {
-    showAuthor: false,
-  },
-  {
-    showCourseCover: true,
-    span: true,
-  },
-  {
-    showCourseCover: true,
-    showAuthor: 'name',
-    showDescription: false,
-  },
-  {
-    showCourseCover: true,
-    showAuthor: 'name',
-  },
-  {},
-  {},
-  {
-    showAuthor: false,
-  },
-];
+import { GRID_OPTIONS } from '../constants';
+import Loader from '../components/Loader';
 
 export default function Home({ data }) {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  const isLoading = React.useMemo(
+    () => status === 'loading' || status === 'unauthenticated',
+    [status],
+  );
 
   React.useEffect(() => {
     if (status === 'unauthenticated') {
@@ -53,28 +36,34 @@ export default function Home({ data }) {
       </Head>
 
       <Container>
-        <Heading>Latest Updates</Heading>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <Heading>Latest Updates</Heading>
 
-        <button onClick={signOut}>sign out</button>
+            <button onClick={signOut}>sign out</button>
 
-        <Masonry
-          options={{
-            gutter: 20,
-            fitWidth: true,
-            columnWidth: 300,
-            horizontalOrder: true,
-            percentPosition: true,
-          }}
-          className="pt-12 pb-20 absolute m-auto min-w-[calc(100vw - 10rem)]"
-        >
-          {data.map((course, i) => (
-            <CourseOverview
-              key={course.id}
-              course={course}
-              {...GRID_OPTIONS[i % GRID_OPTIONS.length]}
-            />
-          ))}
-        </Masonry>
+            <Masonry
+              options={{
+                gutter: 20,
+                fitWidth: true,
+                columnWidth: 300,
+                horizontalOrder: true,
+                percentPosition: true,
+              }}
+              className="pt-12 pb-20 absolute m-auto min-w-[calc(100vw - 10rem)]"
+            >
+              {data.map((course, i) => (
+                <CourseOverview
+                  key={course.id}
+                  course={course}
+                  {...GRID_OPTIONS[i % GRID_OPTIONS.length]}
+                />
+              ))}
+            </Masonry>
+          </>
+        )}
       </Container>
     </div>
   );

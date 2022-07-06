@@ -4,13 +4,25 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 // components
 import Container from '../components/Container';
-import Logo from '../components/Logo';
 import SearchBar from '../components/SearchBar';
 import TagsList from '../components/TagList';
 
-export default function Home({ data }) {
+export default function Interests() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [selectedTags, setSelectedTags] = React.useState([]);
+
+  const toggleSelectedTags = tag => {
+    if (!selectedTags.includes(tag)) {
+      setSelectedTags([...selectedTags, tag]);
+    } else {
+      setSelectedTags([...selectedTags.filter(t => t !== tag)]);
+    }
+  };
+
+  const checkIfTagIsSelected = tag => {
+    return selectedTags.find(t => t === tag);
+  };
 
   return (
     <div>
@@ -25,7 +37,10 @@ export default function Home({ data }) {
           <SearchBar icon="search" />
         </div>
 
-        <TagsList />
+        <TagsList
+          toggleSelectedTags={toggleSelectedTags}
+          checkIfTagIsSelected={checkIfTagIsSelected}
+        />
       </Container>
     </div>
   );
