@@ -55,6 +55,8 @@ export default function Home({ data }) {
       <Container>
         <Heading>Latest Updates</Heading>
 
+        <button onClick={signOut}>sign out</button>
+
         <Masonry
           options={{
             gutter: 20,

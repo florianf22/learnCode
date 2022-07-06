@@ -1,12 +1,10 @@
 import * as React from 'react';
 import Head from 'next/head';
 import GoogleButton from 'react-google-button';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-
 // components
 import Container from '../components/Container';
-import Logo from '../components/Logo';
 
 export default function Auth() {
   const { data: session, status } = useSession();
@@ -40,8 +38,6 @@ export default function Auth() {
           onClick={onSignIn}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         />
-
-        <button onClick={signOut}>log out man</button>
       </Container>
     </div>
   );
