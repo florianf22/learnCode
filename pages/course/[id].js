@@ -15,8 +15,8 @@ export default function Course() {
         <meta name="description" content="Find the perfect course for you!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <div>Hi</div>
+      <h1></h1>
     </div>
   );
 }
