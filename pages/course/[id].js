@@ -31,7 +31,7 @@ export default function Course({ data }) {
   );
 }
 
-export const getStaticProps = async context => {
+export const getServerSideProps = async context => {
   const id = context.params?.id;
 
   const course = await fetchCourse(id);
@@ -48,19 +48,39 @@ export const getStaticProps = async context => {
     props: {
       data: course,
     },
-    revalidate: 20,
   };
 };
 
-export const getStaticPaths = async () => {
-  const data = await fetchCourses();
+// export const getStaticProps = async context => {
+//   const id = context.params?.id;
 
-  const paths = data.map(course => ({
-    params: { id: course.published_title },
-  }));
+//   const course = await fetchCourse(id);
 
-  return {
-    paths,
-    fallback: false, // false or 'blocking'
-  };
-};
+//   if (!course) {
+//     return {
+//       props: {
+//         data: null,
+//       },
+//     };
+//   }
+
+//   return {
+//     props: {
+//       data: course,
+//     },
+//     revalidate: 20,
+//   };
+// };
+
+// export const getStaticPaths = async () => {
+//   const data = await fetchCourses();
+
+//   const paths = data.map(course => ({
+//     params: { id: course.published_title },
+//   }));
+
+//   return {
+//     paths,
+//     fallback: false, // false or 'blocking'
+//   };
+// };
