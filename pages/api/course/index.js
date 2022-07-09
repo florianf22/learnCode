@@ -3,11 +3,16 @@ import connectDB from '../../../middleware/mongodb';
 import Course from '../../../models/Course';
 
 const handler = async (req, res) => {
+  const { query } = req.query;
+
+  const changedQuery = query.replace(/\,/g, '|');
+
+  // find courses where headline matches query
   const courses = await Course.find({
-    headline: {
-      $regex: /js/i,
-    },
-  }).limit(20);
+    headline: new RegExp(changedQuery, 'i'),
+  });
+
+  console.log(courses);
 
   const formattedCourses = formatVisibleInstructors(courses);
 
@@ -15,3 +20,6 @@ const handler = async (req, res) => {
 };
 
 export default connectDB(handler);
+
+// $regex: new RegExp(/css|php/, 'i'),
+//

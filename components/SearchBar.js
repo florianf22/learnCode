@@ -6,6 +6,8 @@ const Input = ({
   onIconClick,
   inputStyles,
   placeholder = 'Find the topics you care about',
+  value,
+  onChange,
   ...props
 }) => {
   return (
@@ -15,6 +17,7 @@ const Input = ({
         placeholder={placeholder}
         className={`border border-black w-full pr-8 pl-6 py-4 rounded-3xl
         focus:outline-none bg-transparent ${inputStyles}`}
+        onChange={onChange}
       />
       {icon && (
         <div

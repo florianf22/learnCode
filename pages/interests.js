@@ -8,10 +8,15 @@ import SearchBar from '../components/SearchBar';
 import TagsList from '../components/TagList';
 import Button from '../components/Button';
 
+import { TAGS } from '../constants';
+
 export default function Interests() {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  const [tags, setTags] = React.useState(TAGS);
   const [selectedTags, setSelectedTags] = React.useState([]);
+  const [search, setSearch] = React.useState('');
 
   const toggleSelectedTags = tag => {
     if (!selectedTags.includes(tag)) {
@@ -25,9 +30,23 @@ export default function Interests() {
     return selectedTags.find(t => t === tag);
   };
 
+  const onSearchTermChange = e => {
+    setSearch(e.target.value);
+    //filter tags
+    setTags(
+      TAGS.filter(tag =>
+        tag.toLowerCase().includes(e.target.value.toLowerCase()),
+      ),
+    );
+  };
+
   const navigateToHomePage = () => {
-    console.log(selectedTags);
-    router.push('/');
+    router.push({
+      query: {
+        data: JSON.stringify(selectedTags),
+      },
+      href: '/',
+    });
   };
 
   return (
@@ -40,12 +59,17 @@ export default function Interests() {
 
       <Container>
         <div className="flex justify-center mt-12">
-          <SearchBar icon="search" />
+          <SearchBar
+            icon="search"
+            value={search}
+            onChange={onSearchTermChange}
+          />
         </div>
 
         <TagsList
           toggleSelectedTags={toggleSelectedTags}
           checkIfTagIsSelected={checkIfTagIsSelected}
+          tags={tags}
         />
 
         <Button className="mt-auto" onClick={navigateToHomePage}>

@@ -16,11 +16,29 @@ import { fetchCourses } from '../app/backend-helpers';
 export default function Home({ data }) {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [interests, setInterests] = React.useState([]);
+  const [fetchedData, setFetchedData] = React.useState([]);
 
   const isLoading = React.useMemo(
     () => status === 'loading' || status === 'unauthenticated',
     [status],
   );
+
+  React.useEffect(() => {
+    (async () => {
+      const queryParams = new URLSearchParams(router.asPath.split('?')[1]);
+
+      console.log(router.asPath);
+
+      if (queryParams.has('data')) {
+        const interests = JSON.parse(queryParams.get('data'));
+        setInterests(interests);
+
+        const courses = await fetchCourses(interests);
+        setFetchedData(courses);
+      }
+    })();
+  }, [router.asPath]);
 
   React.useEffect(() => {
     if (status === 'unauthenticated') {
@@ -70,7 +88,7 @@ export default function Home({ data }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
   const data = await fetchCourses();
 
   return { props: { data }, revalidate: 20 };

@@ -1,10 +1,10 @@
 import Tag from './Tag';
-import { TAGS } from '../constants';
 
 const TagsList = ({
   className,
   toggleSelectedTags,
   checkIfTagIsSelected,
+  tags,
   ...props
 }) => {
   return (
@@ -14,7 +14,7 @@ const TagsList = ({
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
       }}
     >
-      {TAGS.map(tag => (
+      {tags.map(tag => (
         <Tag
           key={tag}
           tagName={tag}

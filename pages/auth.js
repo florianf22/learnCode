@@ -5,6 +5,10 @@ import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 // components
 import Container from '../components/Container';
+import {
+  GithubLoginButton,
+  GoogleLoginButton,
+} from 'react-social-login-buttons';
 
 export default function Auth() {
   const { data: session, status } = useSession();
@@ -16,9 +20,17 @@ export default function Auth() {
     }
   }, [router, status]);
 
-  const onSignIn = async () => {
+  const onSignInGoogle = async () => {
     try {
       await signIn('google');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const onSignInGithub = async () => {
+    try {
+      await signIn('github');
     } catch (err) {
       console.error(err);
     }
@@ -33,10 +45,20 @@ export default function Auth() {
       </Head>
 
       <Container footerShown={false}>
-        <GoogleButton
-          onClick={onSignIn}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+          flex flex-col gap-2"
+        >
+          <GoogleLoginButton
+            onClick={onSignInGoogle}
+            className="min-w-[250px]"
+          />
+
+          <GithubLoginButton
+            onClick={onSignInGithub}
+            className="min-w-[250px]"
+          />
+        </div>
       </Container>
     </div>
   );
