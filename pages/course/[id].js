@@ -2,7 +2,7 @@ import * as React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { formatAsPath } from '../../lib';
-import { fetchCourse, fetchCourses } from '../../api/backend-helpers';
+import { fetchCourse, fetchCourses } from '../../app/backend-helpers';
 import Error from 'next/error';
 import Container from '../../components/Container';
 import CourseComponent from '../../components/Course';
