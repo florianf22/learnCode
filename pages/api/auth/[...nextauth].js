@@ -17,4 +17,5 @@ export default NextAuth({
       return token;
     },
   },
+  secret: '111',
 });
