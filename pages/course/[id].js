@@ -64,3 +64,9 @@
 //     fallback: true, // false or 'blocking'
 //   };
 // };
+
+const Course = ({ course }) => {
+  return <div></div>;
+};
+
+export default Course;
