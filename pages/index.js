@@ -22,11 +22,11 @@ export default function Home({ data }) {
     [status],
   );
 
-  React.useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/auth');
-    }
-  }, [router, status]);
+  // React.useEffect(() => {
+  //   if (status === 'unauthenticated') {
+  //     router.push('/auth');
+  //   }
+  // }, [router, status]);
 
   return (
     <div>
@@ -37,7 +37,7 @@ export default function Home({ data }) {
       </Head>
 
       <Container>
-        {isLoading ? (
+        {false ? (
           <Loader />
         ) : (
           <>
