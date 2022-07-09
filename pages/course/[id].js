@@ -16,8 +16,6 @@ export default function Course({ data }) {
     return <Error title="Course could not be found" />;
   }
 
-  console.log(data.course);
-
   return (
     <div>
       <Head>
