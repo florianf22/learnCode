@@ -7,6 +7,12 @@ export default NextAuth({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
+    CredentialsProvider({
+      credentials: {
+        username: { label: 'Username', type: 'text' },
+        password: { label: 'Password', type: 'password' },
+      },
+    }),
   ],
   theme: {
     colorScheme: 'light',
