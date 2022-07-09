@@ -1,13 +1,22 @@
 import * as React from 'react';
+import Footer from './Footer';
 import Logo from './Logo';
 
-const Container = ({ children, main, className, ...props }) => {
+const Container = ({
+  children,
+  main,
+  className,
+  footerShown = true,
+  ...props
+}) => {
   const cls = 'pt-8 px-20 w-[100vw] min-h-[100vh] bg-bg text-text font-poppins';
 
   if (main) {
     return (
       <main {...props} className={`${cls} ${className}`}>
         {children}
+
+        <Footer />
       </main>
     );
   }
@@ -20,6 +29,8 @@ const Container = ({ children, main, className, ...props }) => {
     >
       <Logo />
       {children}
+
+      {footerShown && <Footer />}
     </div>
   );
 };

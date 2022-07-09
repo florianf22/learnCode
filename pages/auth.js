@@ -10,11 +10,11 @@ export default function Auth() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  React.useEffect(() => {
-    if (status === 'authenticated') {
-      router.push('/interests');
-    }
-  }, [router, status]);
+  // React.useEffect(() => {
+  //   if (status === 'authenticated') {
+  //     router.push('/interests');
+  //   }
+  // }, [router, status]);
 
   const onSignIn = async () => {
     try {
@@ -32,7 +32,7 @@ export default function Auth() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container>
+      <Container footerShown={false}>
         <GoogleButton
           onClick={onSignIn}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

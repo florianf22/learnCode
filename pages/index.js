@@ -3,15 +3,15 @@ import Head from 'next/head';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Masonry from 'react-masonry-component';
-import { BarWave } from 'react-cssfx-loading';
 
 import Container from '../components/Container';
 import Heading from '../components/Heading';
 import CourseOverview from '../components/CourseOverview';
+import Loader from '../components/Loader';
 
 import { GRID_OPTIONS } from '../constants';
-import Loader from '../components/Loader';
-import { getBaseUrl } from '../lib/getBaseUrl';
+
+import { fetchCourses } from '../api/backend-helpers';
 
 export default function Home({ data }) {
   const { data: session, status } = useSession();
@@ -70,9 +70,8 @@ export default function Home({ data }) {
   );
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(`${getBaseUrl()}/api/course`);
-  const data = await res.json();
+export async function getStaticProps() {
+  const data = await fetchCourses();
 
-  return { props: { data, revalidate: 10, fallback: false } };
+  return { props: { data }, revalidate: 20 };
 }
