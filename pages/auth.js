@@ -10,11 +10,11 @@ export default function Auth() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  // React.useEffect(() => {
-  //   if (status === 'authenticated') {
-  //     router.push('/interests');
-  //   }
-  // }, [router, status]);
+  React.useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/interests');
+    }
+  }, [router, status]);
 
   const onSignIn = async () => {
     try {

@@ -36,7 +36,7 @@ export default function Home({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container>
+      <Container footerShown={!isLoading}>
         {isLoading ? (
           <Loader />
         ) : (
