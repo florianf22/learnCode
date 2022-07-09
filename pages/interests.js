@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Container from '../components/Container';
 import SearchBar from '../components/SearchBar';
 import TagsList from '../components/TagList';
+import Button from '../components/Button';
 
 export default function Interests() {
   const { data: session, status } = useSession();
@@ -22,6 +23,11 @@ export default function Interests() {
 
   const checkIfTagIsSelected = tag => {
     return selectedTags.find(t => t === tag);
+  };
+
+  const navigateToHomePage = () => {
+    console.log(selectedTags);
+    router.push('/');
   };
 
   return (
@@ -41,6 +47,10 @@ export default function Interests() {
           toggleSelectedTags={toggleSelectedTags}
           checkIfTagIsSelected={checkIfTagIsSelected}
         />
+
+        <Button className="mt-auto" onClick={navigateToHomePage}>
+          Proceed with chosen interests
+        </Button>
       </Container>
     </div>
   );

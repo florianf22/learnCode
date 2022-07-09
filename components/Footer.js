@@ -3,7 +3,7 @@ import * as React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="flex justify-between items-center h-24">
+    <footer className="flex justify-between items-center h-24 mt-auto">
       <h3>
         Thanks for{' '}
         <span className="border-b border-primary text-primary">coming!</span>

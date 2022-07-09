@@ -9,7 +9,8 @@ const Container = ({
   footerShown = true,
   ...props
 }) => {
-  const cls = 'pt-8 px-20 w-[100vw] min-h-[100vh] bg-bg text-text font-poppins';
+  const cls =
+    'pt-8 px-20 w-[100vw] min-h-[100vh] bg-bg text-text font-poppins overflow-x-hidden';
 
   if (main) {
     return (
@@ -25,7 +26,7 @@ const Container = ({
     <div
       {...props}
       // className={`${cls} ${className}`}
-      className="pt-8 px-20 w-[100vw] min-h-[100vh] bg-bg text-text font-poppins"
+      className="pt-8 px-20 w-[100vw] min-h-[100vh] bg-bg text-text font-poppins flex flex-col overflow-x-hidden"
     >
       <Logo />
       {children}
