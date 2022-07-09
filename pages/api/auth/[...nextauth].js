@@ -23,5 +23,4 @@ export default NextAuth({
       return token;
     },
   },
-  secret: process.env.NEXTAUTH_URL,
 });
