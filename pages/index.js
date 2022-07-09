@@ -11,7 +11,7 @@ import Loader from '../components/Loader';
 
 import { GRID_OPTIONS } from '../constants';
 
-import { fetchCourses } from '../api/backend-helpers';
+import { fetchCourses } from '../app/backend-helpers';
 
 export default function Home({ data }) {
   const { data: session, status } = useSession();
