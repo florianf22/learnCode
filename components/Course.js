@@ -4,13 +4,7 @@ import AuthorInfo from './AuthorInfo';
 import Dots from './Dots';
 import Link from 'next/link';
 
-const Course = ({
-  course,
-  showCourseCover = false,
-  showDescription = true,
-  showAuthor = 'picture',
-  span = false,
-}) => {
+const Course = ({ course }) => {
   const {
     url,
     image_480x270,
@@ -25,15 +19,6 @@ const Course = ({
 
   return (
     <article className="mt-6 flex flex-col items-center">
-      {/* <div className={`relative h-[150px] w-[250px]`}>
-        <Image
-          src={image_480x270}
-          alt="Course photo"
-          layout="fill"
-          objectFit="cover"
-        />
-      </div> */}
-
       <h1 className="font-bold text-3xl">{title}</h1>
 
       <div className="mt-14 flex gap-4 items-center">
@@ -48,11 +33,13 @@ const Course = ({
           />
         </div>
 
-        <AuthorInfo
-          showAuthor="name"
-          author={author}
-          authorJobTitle={authorJobTitle}
-        />
+        {author && (
+          <AuthorInfo
+            showAuthor="name"
+            author={author}
+            authorJobTitle={authorJobTitle}
+          />
+        )}
       </div>
 
       <Dots className="mt-10" />

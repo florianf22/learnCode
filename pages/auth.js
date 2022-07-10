@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Head from 'next/head';
-import GoogleButton from 'react-google-button';
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 // components
@@ -15,14 +14,14 @@ export default function Auth() {
   const router = useRouter();
 
   React.useEffect(() => {
-    if (status === 'authenticated') {
+    if (session) {
       router.push('/interests');
     }
-  }, [router, status]);
+  }, [session, router]);
 
   const onSignInGoogle = async () => {
     try {
-      await signIn('google');
+      signIn('google');
     } catch (err) {
       console.error(err);
     }
@@ -30,7 +29,7 @@ export default function Auth() {
 
   const onSignInGithub = async () => {
     try {
-      await signIn('github');
+      signIn('github');
     } catch (err) {
       console.error(err);
     }

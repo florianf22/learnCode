@@ -2,13 +2,18 @@ import * as React from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Logo from './Logo';
+import { useRouter } from 'next/router';
 
 const Header = () => {
-  const router = useRouter();
   const { data: session, status } = useSession();
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const router = useRouter();
+
+  const onSignOut = async () => {
+    await signOut();
+    router.push('/auth');
+  };
 
   if (status === 'authenticated') {
     return (
@@ -32,7 +37,7 @@ const Header = () => {
           {menuOpen && (
             <div
               className="flex flex-col items-center absolute top-full right-0
-    bg-accent text-white px-4 py-2 shadow-lg z-10 rounded-md"
+                bg-accent text-white px-4 py-2 shadow-lg z-10 rounded-md"
             >
               <div className="flex gap-3 py-2">
                 <div
@@ -71,7 +76,7 @@ const Header = () => {
                   href="#!"
                   className="text-gray-300 hover:text-gray-400 transition duration-300 ease-in-out mb-4
           self-start"
-                  onClick={signOut}
+                  onClick={onSignOut}
                 >
                   Sign out
                 </a>

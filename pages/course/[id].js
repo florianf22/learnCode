@@ -6,11 +6,14 @@ import { fetchCourse, fetchCourses } from '../../app/backend-helpers';
 import Error from 'next/error';
 import Container from '../../components/Container';
 import CourseComponent from '../../components/Course';
+import useAuth from '../../hooks/useAuth';
 
 export default function Course({ data }) {
   const router = useRouter();
 
   const id = React.useMemo(() => formatAsPath(router.asPath), [router.asPath]);
+
+  useAuth();
 
   if (!data?.course) {
     return <Error title="Course could not be found" />;

@@ -19,6 +19,7 @@ const Home = ({ data }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [fetchedData, setFetchedData] = React.useState([]);
+  const [loadingData, setLoadingData] = React.useState(false);
 
   const isLoading = React.useMemo(
     () => status === 'loading' || status === 'unauthenticated',
@@ -30,13 +31,36 @@ const Home = ({ data }) => {
       const interests = getQueryParamsData(router.asPath);
 
       if (interests) {
+        setLoadingData(true);
         const courses = await fetchCourses(interests);
         setFetchedData(courses);
       }
+
+      setLoadingData(false);
     })();
   }, [router.asPath]);
 
   useAuth();
+
+  const renderCourses = () => {
+    if (loadingData) return <Loader />;
+
+    return fetchedData?.length && fetchedData.length > 0
+      ? fetchedData.map((course, i) => (
+          <CourseOverview
+            key={course.id}
+            course={course}
+            {...GRID_OPTIONS[i % GRID_OPTIONS.length]}
+          />
+        ))
+      : data.map((course, i) => (
+          <CourseOverview
+            key={course.id}
+            course={course}
+            {...GRID_OPTIONS[i % GRID_OPTIONS.length]}
+          />
+        ));
+  };
 
   return (
     <div>
@@ -63,21 +87,7 @@ const Home = ({ data }) => {
               }}
               className="pt-12 pb-20 absolute m-auto min-w-[calc(100vw - 10rem)]"
             >
-              {fetchedData.length > 0
-                ? fetchedData.map((course, i) => (
-                    <CourseOverview
-                      key={course.id}
-                      course={course}
-                      {...GRID_OPTIONS[i % GRID_OPTIONS.length]}
-                    />
-                  ))
-                : data.map((course, i) => (
-                    <CourseOverview
-                      key={course.id}
-                      course={course}
-                      {...GRID_OPTIONS[i % GRID_OPTIONS.length]}
-                    />
-                  ))}
+              {renderCourses()}
             </Masonry>
           </>
         )}

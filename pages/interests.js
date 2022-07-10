@@ -34,7 +34,6 @@ const Interests = () => {
 
   const onSearchTermChange = e => {
     setSearch(e.target.value);
-    //filter tags
     setTags(
       TAGS.filter(tag =>
         tag.name.toLowerCase().includes(e.target.value.toLowerCase()),
@@ -43,12 +42,16 @@ const Interests = () => {
   };
 
   const navigateToHomePage = () => {
-    router.push({
-      query: {
-        data: JSON.stringify(selectedTags),
-      },
-      pathname: '/',
-    });
+    if (selectedTags.length > 0) {
+      router.push({
+        query: {
+          data: JSON.stringify(selectedTags),
+        },
+        pathname: '/',
+      });
+    } else {
+      router.push('/');
+    }
   };
 
   return (
