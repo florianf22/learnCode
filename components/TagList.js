@@ -14,10 +14,12 @@ const TagsList = ({
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
       }}
     >
-      {tags.map(tag => (
+      {tags.map((tag, idx) => (
         <Tag
-          key={tag}
-          tagName={tag}
+          key={tag.name}
+          tagName={tag.name}
+          idx={idx}
+          tagDescription={tag.description}
           toggleSelectedTags={toggleSelectedTags}
           checkIfTagIsSelected={checkIfTagIsSelected}
         />

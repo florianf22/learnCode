@@ -37,7 +37,7 @@ const Interests = () => {
     //filter tags
     setTags(
       TAGS.filter(tag =>
-        tag.toLowerCase().includes(e.target.value.toLowerCase()),
+        tag.name.toLowerCase().includes(e.target.value.toLowerCase()),
       ),
     );
   };
