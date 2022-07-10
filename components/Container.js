@@ -1,5 +1,8 @@
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import * as React from 'react';
 import Footer from './Footer';
+import Header from './Header';
 import Logo from './Logo';
 
 const Container = ({
@@ -25,10 +28,10 @@ const Container = ({
   return (
     <div
       {...props}
-      // className={`${cls} ${className}`}
       className="pt-8 px-20 w-[100vw] min-h-[100vh] bg-bg text-text font-poppins flex flex-col overflow-x-hidden"
     >
-      <Logo />
+      <Header />
+
       {children}
 
       {footerShown && <Footer />}

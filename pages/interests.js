@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { useRouter, withRouter } from 'next/router';
 // components
 import Container from '../components/Container';
 import SearchBar from '../components/SearchBar';
@@ -9,14 +9,16 @@ import TagsList from '../components/TagList';
 import Button from '../components/Button';
 
 import { TAGS } from '../constants';
+import useAuth from '../hooks/useAuth';
 
-export default function Interests() {
-  const { data: session, status } = useSession();
+const Interests = () => {
   const router = useRouter();
 
   const [tags, setTags] = React.useState(TAGS);
   const [selectedTags, setSelectedTags] = React.useState([]);
   const [search, setSearch] = React.useState('');
+
+  useAuth();
 
   const toggleSelectedTags = tag => {
     if (!selectedTags.includes(tag)) {
@@ -45,7 +47,7 @@ export default function Interests() {
       query: {
         data: JSON.stringify(selectedTags),
       },
-      href: '/',
+      pathname: '/',
     });
   };
 
@@ -78,4 +80,6 @@ export default function Interests() {
       </Container>
     </div>
   );
-}
+};
+
+export default Interests;

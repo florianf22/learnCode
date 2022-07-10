@@ -39,7 +39,7 @@ export default function Auth() {
   return (
     <div>
       <Head>
-        <title>learnCode</title>
+        <title>learnCode | Login</title>
         <meta name="description" content="Find the perfect course for you!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -49,14 +49,19 @@ export default function Auth() {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
           flex flex-col gap-2"
         >
+          <h2 className="max-w-[50ch] text-center mb-8 text-lg">
+            learnCode offers 912 Programming courses from top instructors and
+            organizations to help you gain or enhance your Programming skills.
+            Sign in to start learning Programming online for free today!
+          </h2>
           <GoogleLoginButton
             onClick={onSignInGoogle}
-            className="min-w-[250px]"
+            className="max-w-[250px] self-center"
           />
 
           <GithubLoginButton
             onClick={onSignInGithub}
-            className="min-w-[250px]"
+            className="max-w-[250px] self-center"
           />
         </div>
       </Container>

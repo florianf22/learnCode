@@ -10,13 +10,9 @@ var user = new Schema({
     type: String,
     required: true,
   },
-  password: {
+  image: {
     type: String,
     required: true,
-  },
-  since: {
-    type: Date,
-    default: Date.now,
   },
 });
 

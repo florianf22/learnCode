@@ -5,14 +5,21 @@ import Course from '../../../models/Course';
 const handler = async (req, res) => {
   const { query } = req.query;
 
-  const changedQuery = query.replace(/\,/g, '|');
+  let courses = [];
 
-  // find courses where headline matches query
-  const courses = await Course.find({
-    headline: new RegExp(changedQuery, 'i'),
-  });
+  if (query === 'undefined') {
+    courses = await Course.find({
+      headline: new RegExp(/css|javascript/, 'i'),
+    });
 
-  console.log(courses);
+    console.log(courses);
+  } else {
+    const changedQuery = query.replace(/\,/g, '|');
+
+    courses = await Course.find({
+      headline: new RegExp(changedQuery, 'i'),
+    });
+  }
 
   const formattedCourses = formatVisibleInstructors(courses);
 
@@ -20,6 +27,3 @@ const handler = async (req, res) => {
 };
 
 export default connectDB(handler);
-
-// $regex: new RegExp(/css|php/, 'i'),
-//

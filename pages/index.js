@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
-import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import { useRouter, withRouter } from 'next/router';
 import Masonry from 'react-masonry-component';
 
 import Container from '../components/Container';
@@ -12,11 +12,12 @@ import Loader from '../components/Loader';
 import { GRID_OPTIONS } from '../constants';
 
 import { fetchCourses } from '../app/backend-helpers';
+import { getQueryParamsData } from '../lib';
+import useAuth from '../hooks/useAuth';
 
-export default function Home({ data }) {
+const Home = ({ data }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [interests, setInterests] = React.useState([]);
   const [fetchedData, setFetchedData] = React.useState([]);
 
   const isLoading = React.useMemo(
@@ -26,25 +27,16 @@ export default function Home({ data }) {
 
   React.useEffect(() => {
     (async () => {
-      const queryParams = new URLSearchParams(router.asPath.split('?')[1]);
+      const interests = getQueryParamsData(router.asPath);
 
-      console.log(router.asPath);
-
-      if (queryParams.has('data')) {
-        const interests = JSON.parse(queryParams.get('data'));
-        setInterests(interests);
-
+      if (interests) {
         const courses = await fetchCourses(interests);
         setFetchedData(courses);
       }
     })();
   }, [router.asPath]);
 
-  React.useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/auth');
-    }
-  }, [router, status]);
+  useAuth();
 
   return (
     <div>
@@ -61,8 +53,6 @@ export default function Home({ data }) {
           <>
             <Heading>Latest Updates</Heading>
 
-            <button onClick={signOut}>sign out</button>
-
             <Masonry
               options={{
                 gutter: 20,
@@ -73,22 +63,32 @@ export default function Home({ data }) {
               }}
               className="pt-12 pb-20 absolute m-auto min-w-[calc(100vw - 10rem)]"
             >
-              {data.map((course, i) => (
-                <CourseOverview
-                  key={course.id}
-                  course={course}
-                  {...GRID_OPTIONS[i % GRID_OPTIONS.length]}
-                />
-              ))}
+              {fetchedData.length > 0
+                ? fetchedData.map((course, i) => (
+                    <CourseOverview
+                      key={course.id}
+                      course={course}
+                      {...GRID_OPTIONS[i % GRID_OPTIONS.length]}
+                    />
+                  ))
+                : data.map((course, i) => (
+                    <CourseOverview
+                      key={course.id}
+                      course={course}
+                      {...GRID_OPTIONS[i % GRID_OPTIONS.length]}
+                    />
+                  ))}
             </Masonry>
           </>
         )}
       </Container>
     </div>
   );
-}
+};
 
-export async function getStaticProps(context) {
+export default withRouter(Home);
+
+export async function getStaticProps() {
   const data = await fetchCourses();
 
   return { props: { data }, revalidate: 20 };
