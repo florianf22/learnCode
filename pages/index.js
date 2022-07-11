@@ -8,6 +8,7 @@ import Container from "../components/Container";
 import Heading from "../components/Heading";
 import CourseOverview from "../components/CourseOverview";
 import Loader from "../components/Loader";
+import Videos from "./videos/components/Videos";
 
 import { GRID_OPTIONS } from "../constants";
 
@@ -70,7 +71,8 @@ const Home = ({ data }) => {
         <meta name="description" content="Find the perfect course for you!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container footerShown={!isLoading}>
+      <Videos />
+      {/* <Container footerShown={!isLoading}>
         {isLoading ? (
           <Loader />
         ) : (
@@ -91,7 +93,7 @@ const Home = ({ data }) => {
             </Masonry>
           </>
         )}
-      </Container>
+      </Container> */}
     </div>
   );
 };
