@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { useSession, signOut } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import Logo from './Logo';
-import { useRouter } from 'next/router';
+import * as React from "react";
+import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import Logo from "./Logo";
+import { useRouter } from "next/router";
 
 const Header = () => {
   const { data: session, status } = useSession();
@@ -12,14 +12,22 @@ const Header = () => {
 
   const onSignOut = async () => {
     await signOut();
-    router.push('/auth');
+    router.push("/auth");
   };
 
-  if (status === 'authenticated') {
+  if (status === "authenticated") {
     return (
       <div className="flex justify-between items-center relative">
         <Logo />
-
+        <Link href="/videos">
+          <a
+            href="#!"
+            className="text-gray-700 hover:text-gray-400 transition duration-300 ease-in-out mb-4
+          self-start"
+          >
+            Videos
+          </a>
+        </Link>
         <div className="flex items-center">
           <div
             className="cursor-pointer"

@@ -1,13 +1,13 @@
-import * as React from 'react';
-import Head from 'next/head';
-import { useSession, signIn } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import * as React from "react";
+import Head from "next/head";
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 // components
-import Container from '../components/Container';
+import Container from "../components/Container";
 import {
   GithubLoginButton,
   GoogleLoginButton,
-} from 'react-social-login-buttons';
+} from "react-social-login-buttons";
 
 export default function Auth() {
   const { data: session, status } = useSession();
@@ -15,13 +15,13 @@ export default function Auth() {
 
   React.useEffect(() => {
     if (session) {
-      router.push('/interests');
+      router.push("/interests");
     }
   }, [session, router]);
 
   const onSignInGoogle = async () => {
     try {
-      signIn('google');
+      signIn("google");
     } catch (err) {
       console.error(err);
     }
@@ -29,7 +29,7 @@ export default function Auth() {
 
   const onSignInGithub = async () => {
     try {
-      signIn('github');
+      signIn("github");
     } catch (err) {
       console.error(err);
     }

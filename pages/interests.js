@@ -1,43 +1,43 @@
-import * as React from 'react';
-import Head from 'next/head';
-import { useSession, signOut } from 'next-auth/react';
-import { useRouter, withRouter } from 'next/router';
+import * as React from "react";
+import Head from "next/head";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter, withRouter } from "next/router";
 // components
-import Container from '../components/Container';
-import SearchBar from '../components/SearchBar';
-import TagsList from '../components/TagList';
-import Button from '../components/Button';
+import Container from "../components/Container";
+import SearchBar from "../components/SearchBar";
+import TagsList from "../components/TagList";
+import Button from "../components/Button";
 
-import { TAGS } from '../constants';
-import useAuth from '../hooks/useAuth';
+import { TAGS } from "../constants";
+import useAuth from "../hooks/useAuth";
 
 const Interests = () => {
   const router = useRouter();
 
   const [tags, setTags] = React.useState(TAGS);
   const [selectedTags, setSelectedTags] = React.useState([]);
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = React.useState("");
 
   useAuth();
 
-  const toggleSelectedTags = tag => {
+  const toggleSelectedTags = (tag) => {
     if (!selectedTags.includes(tag)) {
       setSelectedTags([...selectedTags, tag]);
     } else {
-      setSelectedTags([...selectedTags.filter(t => t !== tag)]);
+      setSelectedTags([...selectedTags.filter((t) => t !== tag)]);
     }
   };
 
-  const checkIfTagIsSelected = tag => {
-    return selectedTags.find(t => t === tag);
+  const checkIfTagIsSelected = (tag) => {
+    return selectedTags.find((t) => t === tag);
   };
 
-  const onSearchTermChange = e => {
+  const onSearchTermChange = (e) => {
     setSearch(e.target.value);
     setTags(
-      TAGS.filter(tag =>
-        tag.name.toLowerCase().includes(e.target.value.toLowerCase()),
-      ),
+      TAGS.filter((tag) =>
+        tag.name.toLowerCase().includes(e.target.value.toLowerCase())
+      )
     );
   };
 
@@ -47,10 +47,10 @@ const Interests = () => {
         query: {
           data: JSON.stringify(selectedTags),
         },
-        pathname: '/',
+        pathname: "/",
       });
     } else {
-      router.push('/');
+      router.push("/");
     }
   };
 

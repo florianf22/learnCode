@@ -1,19 +1,19 @@
-import * as React from 'react';
-import Head from 'next/head';
-import { useSession } from 'next-auth/react';
-import { useRouter, withRouter } from 'next/router';
-import Masonry from 'react-masonry-component';
+import * as React from "react";
+import Head from "next/head";
+import { useSession } from "next-auth/react";
+import { useRouter, withRouter } from "next/router";
+import Masonry from "react-masonry-component";
 
-import Container from '../components/Container';
-import Heading from '../components/Heading';
-import CourseOverview from '../components/CourseOverview';
-import Loader from '../components/Loader';
+import Container from "../components/Container";
+import Heading from "../components/Heading";
+import CourseOverview from "../components/CourseOverview";
+import Loader from "../components/Loader";
 
-import { GRID_OPTIONS } from '../constants';
+import { GRID_OPTIONS } from "../constants";
 
-import { fetchCourses } from '../app/backend-helpers';
-import { getQueryParamsData } from '../lib';
-import useAuth from '../hooks/useAuth';
+import { fetchCourses } from "../app/backend-helpers";
+import { getQueryParamsData } from "../lib";
+import useAuth from "../hooks/useAuth";
 
 const Home = ({ data }) => {
   const { data: session, status } = useSession();
@@ -22,8 +22,8 @@ const Home = ({ data }) => {
   const [loadingData, setLoadingData] = React.useState(false);
 
   const isLoading = React.useMemo(
-    () => status === 'loading' || status === 'unauthenticated',
-    [status],
+    () => status === "loading" || status === "unauthenticated",
+    [status]
   );
 
   React.useEffect(() => {
@@ -32,6 +32,7 @@ const Home = ({ data }) => {
 
       if (interests) {
         setLoadingData(true);
+
         const courses = await fetchCourses(interests);
         setFetchedData(courses);
       }
@@ -69,7 +70,6 @@ const Home = ({ data }) => {
         <meta name="description" content="Find the perfect course for you!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Container footerShown={!isLoading}>
         {isLoading ? (
           <Loader />
