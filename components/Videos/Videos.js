@@ -1,18 +1,19 @@
-import React from "react";
-import SearchBar from "./SearchBar";
-import youtube from "../api/youtube";
-import VideoList from "./VideoList";
-import VideoDetails from "./VideoDetails";
+import React from 'react';
+import SearchBar from './SearchBar';
+import youtube from '../../app/youtube';
+import VideoList from './VideoList';
+import VideoDetails from './VideoDetails';
+import { TAGS } from '../../constants';
 
 class Videos extends React.Component {
   state = { videos: [], selectedVideo: null, burgerBar: 0 };
 
   componentDidMount() {
-    this.onTermSubmit("html");
+    this.onTermSubmit('html');
   }
 
-  onTermSubmit = async (term) => {
-    const res = await youtube.get("/search", {
+  onTermSubmit = async term => {
+    const res = await youtube.get('/search', {
       params: {
         q: term,
       },
@@ -23,20 +24,20 @@ class Videos extends React.Component {
     });
   };
 
-  onVideoSelect = (video) => {
+  onVideoSelect = video => {
     this.setState({ selectedVideo: video });
   };
 
-  hamburgerMenu = (e) => {
-    e.target.display = "none  ";
+  hamburgerMenu = e => {
+    e.target.display = 'none  ';
   };
 
   render() {
     return (
       <div>
         <div
-          className={`absolute space-y-2 p-5  hover:bg-slate-500 ${
-            this.state.burgerBar ? "hidden" : ""
+          className={`space-y-2 p-5 inline-block hover:bg-slate-500 ${
+            this.state.burgerBar ? 'hidden' : ''
           } `}
           onClick={() => this.setState({ burgerBar: 1 })}
         >
@@ -46,32 +47,25 @@ class Videos extends React.Component {
         </div>
         <div
           className={` flex flex-col absolute space-y-2 p-5 h-screen w-25 bg-zinc-800 z-10 ${
-            this.state.burgerBar ? "" : "hidden"
+            this.state.burgerBar ? '' : 'hidden'
           } `}
         >
-          <div
-            className="inline-block p-2 text-white hover:bg-slate-500 "
-            onClick={(e) => {
-              console.log(e);
-              console.log(e.target.innerText);
-              this.onTermSubmit(e.target.innerText);
-              this.setState({ burgerBar: 0 });
-            }}
-          >
-            23
-          </div>
-          <div
-            className="inline-block  p-2 text-white hover:bg-slate-500 "
-            onClick={() => this.setState({ burgerBar: 0 })}
-          >
-            23jqwef fvefj;kql/blfleqbfjvqbp;fb
-          </div>
-          <div
-            className="inline-block p-2 text-white  hover:bg-slate-500 "
-            onClick={() => this.setState({ burgerBar: 0 })}
-          >
-            23
-          </div>
+          {TAGS.map((tag, index) => {
+            return (
+              <div
+                key={index}
+                className="inline-block p-2 text-white hover:bg-slate-500 "
+                onClick={e => {
+                  console.log(e);
+                  console.log(e.target.innerText);
+                  this.onTermSubmit(e.target.innerText);
+                  this.setState({ burgerBar: 0 });
+                }}
+              >
+                {tag.name}
+              </div>
+            );
+          })}
         </div>
         <div className="container max-w-[85%] mx-auto h-screen ">
           <SearchBar onSubmit={this.onTermSubmit} />

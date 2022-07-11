@@ -1,20 +1,19 @@
-import * as React from "react";
-import Head from "next/head";
-import { useSession } from "next-auth/react";
-import { useRouter, withRouter } from "next/router";
-import Masonry from "react-masonry-component";
+import * as React from 'react';
+import Head from 'next/head';
+import { useSession } from 'next-auth/react';
+import { useRouter, withRouter } from 'next/router';
+import Masonry from 'react-masonry-component';
 
-import Container from "../components/Container";
-import Heading from "../components/Heading";
-import CourseOverview from "../components/CourseOverview";
-import Loader from "../components/Loader";
-import Videos from "./videos/components/Videos";
+import Container from '../components/Container';
+import Heading from '../components/Heading';
+import CourseOverview from '../components/CourseOverview';
+import Loader from '../components/Loader';
 
-import { GRID_OPTIONS } from "../constants";
+import { GRID_OPTIONS } from '../constants';
 
-import { fetchCourses } from "../app/backend-helpers";
-import { getQueryParamsData } from "../lib";
-import useAuth from "../hooks/useAuth";
+import { fetchCourses } from '../app/backend-helpers';
+import { getQueryParamsData } from '../lib';
+import useAuth from '../hooks/useAuth';
 
 const Home = ({ data }) => {
   const { data: session, status } = useSession();
@@ -23,8 +22,8 @@ const Home = ({ data }) => {
   const [loadingData, setLoadingData] = React.useState(false);
 
   const isLoading = React.useMemo(
-    () => status === "loading" || status === "unauthenticated",
-    [status]
+    () => status === 'loading' || status === 'unauthenticated',
+    [status],
   );
 
   React.useEffect(() => {
@@ -71,8 +70,8 @@ const Home = ({ data }) => {
         <meta name="description" content="Find the perfect course for you!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Videos />
-      {/* <Container footerShown={!isLoading}>
+
+      <Container footerShown={!isLoading}>
         {isLoading ? (
           <Loader />
         ) : (
@@ -93,7 +92,7 @@ const Home = ({ data }) => {
             </Masonry>
           </>
         )}
-      </Container> */}
+      </Container>
     </div>
   );
 };
