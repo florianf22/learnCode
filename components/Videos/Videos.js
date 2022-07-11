@@ -46,15 +46,14 @@ class Videos extends React.Component {
           <div className="w-8 h-0.5 bg-gray-600"></div>
         </div>
         <div
-          className={` flex flex-col absolute space-y-2 p-5 h-screen w-25 bg-zinc-800 z-10 ${
-            this.state.burgerBar ? '' : 'hidden'
-          } `}
+          className={`flex flex-col absolute space-y-2 p-5 h-screen w-25 bg-zinc-800 z-10 
+          ${this.state.burgerBar ? '' : 'hidden'} overflow-auto py-8`}
         >
           {TAGS.map((tag, index) => {
             return (
               <div
                 key={index}
-                className="inline-block p-2 text-white hover:bg-slate-500 "
+                className="inline-block p-2 text-white hover:bg-slate-500"
                 onClick={e => {
                   console.log(e);
                   console.log(e.target.innerText);
